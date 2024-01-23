@@ -17,3 +17,4 @@ template Multiplier2() {
 
 
 component main = Multiplier2();
+// component main {public [a, b]} = Multiplier2()  to make private signals as public 
