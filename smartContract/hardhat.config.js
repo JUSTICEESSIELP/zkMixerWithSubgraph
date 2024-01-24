@@ -52,6 +52,14 @@ module.exports = {
       },
     },
   },
+  circom: {
+    // (optional) Base path for input files, defaults to `./circuits/`
+    inputBasePath: "./circuits",
+    // (required) The final ptau file, relative to inputBasePath, from a Phase 1 ceremony
+    ptau: "pot14_0002.ptau",
+    // (required) Each object in this array refers to a separate circuit
+    circuits: [{ name: "ageLimit" }],
+  },
   defaultNetwork: "hardhat",
   namedAccounts: {
     deployer: {
@@ -73,9 +81,9 @@ module.exports = {
     hardhat: {
       chainId: 31337,
     },
-    localhost: {
-      chainId: 31337,
-    },
+    // localhost: {
+    //   chainId: 31337,
+    // },
 
     goerli: {
       url: `https://eth-goerli.alchemyapi.io/v2/${providerApiKey}`,
