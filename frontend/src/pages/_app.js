@@ -26,6 +26,6 @@ const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata });
 createWeb3Modal({ wagmiConfig, projectId, chains });
 
 export default function App({ Component, pageProps }) {
-  const [account, setAccount] = useState(null);
+  
   return <Component {...pageProps} />;
 }
