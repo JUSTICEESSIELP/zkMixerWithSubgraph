@@ -41,7 +41,7 @@ snarkjs wtns export json witness.wtns
 ### Set up plonk proving key
 
 ```
-snarkjs plonk setup circuit.r1cs powersOfTau28_hez_final_08.ptau circuit_final.zkey
+snarkjs groth16 setup circuit.r1cs powersOfTau28_hez_final_08.ptau circuit_final.zkey
 ```
 
 ### Verify if you have the right zkey

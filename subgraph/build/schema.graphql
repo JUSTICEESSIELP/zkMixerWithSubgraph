@@ -1,0 +1,18 @@
+type Greeting @entity {
+  id: ID!
+  sender: Sender!
+  greeting: String!
+  premium: Boolean
+  value: BigInt
+  createdAt: BigInt!
+  transactionHash: String!
+  blockNumber: BigInt!
+}
+
+type Sender @entity {
+  id: ID!
+  address: Bytes!
+  greetings: [Greeting!] @derivedFrom(field: "sender")
+  createdAt: BigInt!
+  greetingCount: BigInt!
+}

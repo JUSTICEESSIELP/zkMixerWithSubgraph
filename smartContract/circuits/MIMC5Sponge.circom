@@ -1,0 +1,114 @@
+pragma circom  2.0.0;
+
+
+
+template MIMC5Feistal() {
+
+    // Declaration of signals.
+    signal input _iL;
+    signal input _iR;
+    signal input k;
+    signal output oL;
+    signal output oR;
+       var nRounds = 20;
+    var base[nRounds];
+    signal base2[nRounds];
+    signal base4[nRounds];
+    signal lastOutputL[nRounds + 1];
+    signal lastOutputR[nRounds + 1];
+
+
+// i choose 20 rounds cause Feistal encrypts only half of the input per round 
+ 
+
+    lastOutputL[0] <== _iL;
+    lastOutputR[0] <== _iR;
+
+    var c[nRounds] = [
+        0,
+        50281665087298506398025612566576429713867677490132600550666462694043893096041,
+        103379909872542805421140796569816612169295853039398864686417708805632325131067,
+        8586855295369424941935330807803134896681691157372145643883923355615550583342,
+        88370656788028663357054378704610607924064488825154270360610943785853808437587,
+        80176421270384287601374674158600932358010734845730789240551909743287128659181,
+        9528216501708403574105991674956722258584542856277612000094300594947363066680,
+        17669521326439010530034895428020811097501471394802251414069319741829373029771,
+        58631108220768371139580724699814589444344114830955946945895965299721834508558,
+        95100372926602787001593384948116402864394899303403306696193376400358861223081,
+        107818123855601272583072257161782347474009303555329756033680199767831149000646,
+        1428802693023461914036224180230354801713259560901182204682110762944690749665,
+        98212930817416947604707053186021029626372029290120295000826942586189933631243,
+        77616516200106068767337201799487094912595296259220362763818164121851717084940,
+        58083512051912905109576180677305052842815684860310822645756294409625272816797,
+        105110014696781952118374891655100624045293309813267472668843831137609860690906,
+        63510890172120891876331835536756515461281359754185699836571235972391984807120,
+        71776992183853185402707224684473119966100872667793758637767495260560955881686,
+        38521477329328306708598228213328859227759684577497015037882397799544926522561,
+        26398687503444292499683437635338801937597812449300890475753400819372208451565
+
+
+    ];
+
+
+  for (var i = 0; i < nRounds ; i++){
+    
+    base[i] = lastOutputR[i] + k + c[i];
+    base2[i] <== base[i] * base[i];
+    base4[i] <== base2[i] * base2[i];
+    
+    lastOutputR[i + 1] <==  lastOutputL[i] + base4[i] * base[i];
+    lastOutputL[i + 1] <== lastOutputR[i];
+  }
+
+  oL <== lastOutputL[nRounds];
+  oR <== lastOutputR[nRounds];
+
+   
+
+}
+
+
+
+
+template MIMCSponge(nInputs){
+    signal input _inputs[nInputs];
+ /// secret 
+    signal input k;
+
+// in our example we want just one output 
+    signal output o;
+
+// rate bit for each round
+    signal lastRoundR[nInputs + 1];
+
+// capacity bits
+    signal lastRoundC[nInputs + 1];
+
+    lastRoundR[0] <== 0;
+    lastRoundC[0] <== 0;
+
+    component layers[nInputs];
+
+    for (var i = 0; i< nInputs ; i++){
+        layers[i]= MIMC5Feistal();
+        layers[i]._iL  <== lastRoundR[i] + _inputs[i];
+        layers[i]._iR  <== lastRoundC[i];
+        layers[i].k <== k;
+
+
+        lastRoundR[i+1] <== layers[i].oL;
+        lastRoundC[i+1] <== layers[i].oR;
+
+    }
+
+    o <== lastRoundR[nInputs];
+
+
+
+
+
+    
+
+}
+
+component main = MIMCSponge(2);
