@@ -1,26 +1,28 @@
 specVersion: 0.0.4
-description: Greetings
-repository: https://github.com/scaffold-eth/se-2/packages/subgraph/
+description: zkMixer
+repository: https://github.com/JUSTICEESSIELP/zkMixerWithSubgraph/subgraph
 schema:
   file: schema.graphql
 dataSources:
   - kind: ethereum/contract
-    name: YourContract
+    name: Tornado
     network: localhost
     source:
-      abi: YourContract
-      address: "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+      abi: Tornado
+      address: "0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0"
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.6
       language: wasm/assemblyscript
       entities:
-        - Greeting
-        - Sender
+        - Deposit
+        - Withdraw
       abis:
-        - name: YourContract
-          file: YourContract/abis/localhost_YourContract.json
+        - name: Tornado
+          file: Tornado\abi\Tornado.json
       eventHandlers:
-        - event: GreetingChange(indexed address,string,bool,uint256)
-          handler: handleGreetingChange
-      file: YourContract/YourContract.wasm
+        - event: Deposit(uint256,uint256[10],uint8[10])
+          handler: handleDeposit
+        - event: Withdrawal(address,uint256)
+          handler: handleWithdrawal
+      file: Tornado\Tornado.wasm

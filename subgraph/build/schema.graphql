@@ -1,18 +1,12 @@
-type Greeting @entity {
+type Deposit @entity {
   id: ID!
-  sender: Sender!
-  greeting: String!
-  premium: Boolean
-  value: BigInt
-  createdAt: BigInt!
-  transactionHash: String!
-  blockNumber: BigInt!
+  root: BigInt!
+  hashPairings: [BigInt!]!
+  pairDirection: [Int!]!
 }
 
-type Sender @entity {
+type Withdrawal @entity {
   id: ID!
-  address: Bytes!
-  greetings: [Greeting!] @derivedFrom(field: "sender")
-  createdAt: BigInt!
-  greetingCount: BigInt!
+  to: Bytes!
+  nulliferHash: BigInt!
 }

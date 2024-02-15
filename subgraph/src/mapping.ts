@@ -1,36 +1,28 @@
-import { BigInt, Address } from "@graphprotocol/graph-ts";
 import {
-  YourContract,
-  GreetingChange,
-} from "../generated/YourContract/YourContract";
-import { Greeting, Sender } from "../generated/schema";
+  Tornado as TornadoContract,
+  Deposit as DepositEvent,
+  Withdrawal as WithdrawalEvent,
+} from "../generated/Tornado/Tornado";
 
-export function handleGreetingChange(event: GreetingChange): void {
-  let senderString = event.params.greetingSetter.toHexString();
+import { Deposit, Withdrawal } from "../generated/schema";
 
-  let sender = Sender.load(senderString);
-
-  if (sender === null) {
-    sender = new Sender(senderString);
-    sender.address = event.params.greetingSetter;
-    sender.createdAt = event.block.timestamp;
-    sender.greetingCount = BigInt.fromI32(1);
-  } else {
-    sender.greetingCount = sender.greetingCount.plus(BigInt.fromI32(1));
+export function handleDeposit(event: DepositEvent): void {
+  let depositSchema = Deposit.load(event.transaction.hash.toHex());
+  if (!depositSchema) {
+    depositSchema = new Deposit(event.transaction.hash.toHex());
+    depositSchema.root = event.params.root;
+    depositSchema.hashPairings = event.params.hashPairings;
+    depositSchema.pairDirection = event.params.pairDirection;
   }
+  depositSchema.save();
+}
 
-  let greeting = new Greeting(
-    event.transaction.hash.toHex() + "-" + event.logIndex.toString()
-  );
+export function handleWithdrawal(event: WithdrawalEvent): void {
+  let withdrawalSchema = Withdrawal.load(event.transaction.hash.toHex());
 
-  greeting.greeting = event.params.newGreeting;
-  greeting.sender = senderString;
-  greeting.premium = event.params.premium;
-  greeting.value = event.params.value;
-  greeting.createdAt = event.block.timestamp;
-  greeting.transactionHash = event.transaction.hash.toHex();
-  greeting.blockNumber = event.block.number;
-
-  greeting.save();
-  sender.save();
+  if (!withdrawalSchema) {
+    withdrawalSchema = new Withdrawal(event.transaction.hash.toHex());
+    withdrawalSchema.to = event.params.to;
+    withdrawalSchema.nulliferHash = event.params.nullifierHash;
+  }
 }
