@@ -23,7 +23,7 @@ module.exports = async ({ getNamedAccounts, deployments, network }) => {
     !developmentChains.includes(network.name) &&
     process.env.ETHERSCAN_API_KEY
   ) {
-    await verify(hasherSponge.address, []);
+    await verify(tornado.address, []);
   }
 };
 module.exports.tags = ["all", "Tornado"];

@@ -1,0 +1,135 @@
+type tornado_approval @entity {
+    id: ID!
+    evt_tx_hash: String!
+    evt_index: BigInt!
+    evt_block_time: String!
+    evt_block_number: BigInt!
+    owner: String!
+    spender: String!
+    value: BigDecimal!
+}
+type tornado_deposit @entity {
+    id: ID!
+    evt_tx_hash: String!
+    evt_index: BigInt!
+    evt_block_time: String!
+    evt_block_number: BigInt!
+    u_amount: BigDecimal!
+    u_dst: String!
+}
+type tornado_message_failed @entity {
+    id: ID!
+    evt_tx_hash: String!
+    evt_index: BigInt!
+    evt_block_time: String!
+    evt_block_number: BigInt!
+    u_nonce: Int!
+    u_payload: String!
+    u_reason: String!
+    u_src_address: String!
+    u_src_chain_id: Int!
+}
+type tornado_ownership_transferred @entity {
+    id: ID!
+    evt_tx_hash: String!
+    evt_index: BigInt!
+    evt_block_time: String!
+    evt_block_number: BigInt!
+    new_owner: String!
+    previous_owner: String!
+}
+type tornado_receive_from_chain @entity {
+    id: ID!
+    evt_tx_hash: String!
+    evt_index: BigInt!
+    evt_block_time: String!
+    evt_block_number: BigInt!
+    u_amount: BigDecimal!
+    u_src_chain_id: Int!
+    u_to: String!
+}
+type tornado_retry_message_success @entity {
+    id: ID!
+    evt_tx_hash: String!
+    evt_index: BigInt!
+    evt_block_time: String!
+    evt_block_number: BigInt!
+    u_nonce: Int!
+    u_payload_hash: String!
+    u_src_address: String!
+    u_src_chain_id: Int!
+}
+type tornado_send_to_chain @entity {
+    id: ID!
+    evt_tx_hash: String!
+    evt_index: BigInt!
+    evt_block_time: String!
+    evt_block_number: BigInt!
+    u_amount: BigDecimal!
+    u_dst_chain_id: Int!
+    u_from: String!
+    u_to_address: String!
+}
+type tornado_set_min_dst_gas @entity {
+    id: ID!
+    evt_tx_hash: String!
+    evt_index: BigInt!
+    evt_block_time: String!
+    evt_block_number: BigInt!
+    u_dst_chain_id: Int!
+    u_min_dst_gas: BigDecimal!
+    u_type: Int!
+}
+type tornado_set_precrime @entity {
+    id: ID!
+    evt_tx_hash: String!
+    evt_index: BigInt!
+    evt_block_time: String!
+    evt_block_number: BigInt!
+    precrime: String!
+}
+type tornado_set_trusted_remote @entity {
+    id: ID!
+    evt_tx_hash: String!
+    evt_index: BigInt!
+    evt_block_time: String!
+    evt_block_number: BigInt!
+    u_path: String!
+    u_remote_chain_id: Int!
+}
+type tornado_set_trusted_remote_address @entity {
+    id: ID!
+    evt_tx_hash: String!
+    evt_index: BigInt!
+    evt_block_time: String!
+    evt_block_number: BigInt!
+    u_remote_address: String!
+    u_remote_chain_id: Int!
+}
+type tornado_set_use_custom_adapter_params @entity {
+    id: ID!
+    evt_tx_hash: String!
+    evt_index: BigInt!
+    evt_block_time: String!
+    evt_block_number: BigInt!
+    u_use_custom_adapter_params: Boolean!
+}
+type tornado_transfer @entity {
+    id: ID!
+    evt_tx_hash: String!
+    evt_index: BigInt!
+    evt_block_time: String!
+    evt_block_number: BigInt!
+    from: String!
+    to: String!
+    value: BigDecimal!
+}
+type tornado_withdrawal @entity {
+    id: ID!
+    evt_tx_hash: String!
+    evt_index: BigInt!
+    evt_block_time: String!
+    evt_block_number: BigInt!
+    u_amount: BigDecimal!
+    u_src: String!
+}

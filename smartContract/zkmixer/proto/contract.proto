@@ -1,0 +1,157 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+package contract.v1;
+
+message Events {
+    repeated tornado_Approval tornado_approvals = 1;
+    repeated tornado_Deposit tornado_deposits = 2;
+    repeated tornado_MessageFailed tornado_message_faileds = 3;
+    repeated tornado_OwnershipTransferred tornado_ownership_transferreds = 4;
+    repeated tornado_ReceiveFromChain tornado_receive_from_chains = 5;
+    repeated tornado_RetryMessageSuccess tornado_retry_message_successes = 6;
+    repeated tornado_SendToChain tornado_send_to_chains = 7;
+    repeated tornado_SetMinDstGas tornado_set_min_dst_gases = 8;
+    repeated tornado_SetPrecrime tornado_set_precrimes = 9;
+    repeated tornado_SetTrustedRemote tornado_set_trusted_remotes = 10;
+    repeated tornado_SetTrustedRemoteAddress tornado_set_trusted_remote_addresses = 11;
+    repeated tornado_SetUseCustomAdapterParams tornado_set_use_custom_adapter_params = 12;
+    repeated tornado_Transfer tornado_transfers = 13;
+    repeated tornado_Withdrawal tornado_withdrawals = 14;
+}
+
+message tornado_Approval {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    bytes owner = 5;
+    bytes spender = 6;
+    string value = 7;
+}
+
+message tornado_Deposit {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    bytes u_dst = 5;
+    string u_amount = 6;
+}
+
+message tornado_MessageFailed {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    uint64 u_src_chain_id = 5;
+    bytes u_src_address = 6;
+    uint64 u_nonce = 7;
+    bytes u_payload = 8;
+    bytes u_reason = 9;
+}
+
+message tornado_OwnershipTransferred {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    bytes previous_owner = 5;
+    bytes new_owner = 6;
+}
+
+message tornado_ReceiveFromChain {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    uint64 u_src_chain_id = 5;
+    bytes u_to = 6;
+    string u_amount = 7;
+}
+
+message tornado_RetryMessageSuccess {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    uint64 u_src_chain_id = 5;
+    bytes u_src_address = 6;
+    uint64 u_nonce = 7;
+    bytes u_payload_hash = 8;
+}
+
+message tornado_SendToChain {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    uint64 u_dst_chain_id = 5;
+    bytes u_from = 6;
+    bytes u_to_address = 7;
+    string u_amount = 8;
+}
+
+message tornado_SetMinDstGas {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    uint64 u_dst_chain_id = 5;
+    uint64 u_type = 6;
+    string u_min_dst_gas = 7;
+}
+
+message tornado_SetPrecrime {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    bytes precrime = 5;
+}
+
+message tornado_SetTrustedRemote {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    uint64 u_remote_chain_id = 5;
+    bytes u_path = 6;
+}
+
+message tornado_SetTrustedRemoteAddress {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    uint64 u_remote_chain_id = 5;
+    bytes u_remote_address = 6;
+}
+
+message tornado_SetUseCustomAdapterParams {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    bool u_use_custom_adapter_params = 5;
+}
+
+message tornado_Transfer {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    bytes from = 5;
+    bytes to = 6;
+    string value = 7;
+}
+
+message tornado_Withdrawal {
+    string evt_tx_hash = 1;
+    uint32 evt_index = 2;
+    google.protobuf.Timestamp evt_block_time = 3;
+    uint64 evt_block_number = 4;
+    bytes u_src = 5;
+    string u_amount = 6;
+}
